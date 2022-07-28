@@ -1,6 +1,7 @@
 package com.danandla.boozycalc.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ingredients", uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }) })
@@ -10,6 +11,9 @@ public class IngredientEntity {
     private Long id;
     private String name;
     private String description;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "globalIngredient")
+    private List<PricedIngredientEntity> pricedIngredients;
 
     public IngredientEntity(){
 
