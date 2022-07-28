@@ -50,4 +50,15 @@ public class IngredientController {
             return ResponseEntity.badRequest().body(e);
         }
     }
+
+    @DeleteMapping("/{name}")
+    public ResponseEntity deleteIngredientByName(@PathVariable String name){
+        try {
+            return ResponseEntity.ok(ingredientService.deleteByName(name));
+        } catch (IngredientNameNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
 }
