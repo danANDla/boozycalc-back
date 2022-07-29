@@ -47,8 +47,8 @@ public class IngredientController {
         }
     }
 
-    @DeleteMapping("/{name}")
-    public ResponseEntity deleteIngredientByName(@PathVariable String name){
+    @DeleteMapping
+    public ResponseEntity deleteIngredientByName(@RequestParam String name){
         try {
             return ResponseEntity.ok(ingredientService.deleteByName(name));
         } catch (ItemNameNotFoundException e) {
