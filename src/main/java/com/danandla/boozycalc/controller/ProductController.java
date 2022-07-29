@@ -2,6 +2,7 @@ package com.danandla.boozycalc.controller;
 
 import com.danandla.boozycalc.entity.ProductEntity;
 import com.danandla.boozycalc.exception.ItemIdNotFoundException;
+import com.danandla.boozycalc.exception.ItemNameNotFoundException;
 import com.danandla.boozycalc.exception.ItemNameUsedException;
 import com.danandla.boozycalc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,17 @@ public class ProductController {
         } catch (ItemNameUsedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (ItemIdNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
+    @GetMapping("/selectByIngredient")
+    public ResponseEntity selectByIngredient(@RequestParam String ingredientName){
+        try {
+            return ResponseEntity.ok(productService.selectByIngredient(ingredientName));
+        } catch (ItemNameNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
