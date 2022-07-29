@@ -37,9 +37,9 @@ public class IngredientController {
     }
 
     @GetMapping
-    public ResponseEntity getIngredientByName(@RequestParam String ingredientName) {
+    public ResponseEntity getIngredientByName(@RequestParam String name) {
         try {
-            return ResponseEntity.ok(ingredientService.findIngredientByName(ingredientName));
+            return ResponseEntity.ok(ingredientService.findIngredientByName(name));
         } catch (ItemNameNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {

@@ -40,9 +40,9 @@ public class ProductController {
     }
 
     @GetMapping("/selectByIngredient")
-    public ResponseEntity selectByIngredient(@RequestParam String ingredientName){
+    public ResponseEntity selectByIngredient(@RequestParam String name){
         try {
-            return ResponseEntity.ok(productService.selectByIngredient(ingredientName));
+            return ResponseEntity.ok(productService.selectByIngredient(name));
         } catch (ItemNameNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
