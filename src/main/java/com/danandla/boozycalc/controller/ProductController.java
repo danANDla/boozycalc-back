@@ -49,4 +49,15 @@ public class ProductController {
             return ResponseEntity.badRequest().body(e);
         }
     }
+
+    @DeleteMapping
+    public ResponseEntity deleteProductByName(@RequestParam String name){
+        try {
+            return ResponseEntity.ok(productService.deleteByName(name));
+        } catch (ItemNameNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
 }

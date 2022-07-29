@@ -40,4 +40,14 @@ public class ProductService {
         if(t == null) throw new ItemNameNotFoundException("ingredient with name wasn't found");
         return productRepo.findByIngrId(t.getId());
     }
+
+    public Long deleteByName(String productName) throws ItemNameNotFoundException {
+        ProductEntity t = productRepo.findByName(productName);
+        if (t != null) {
+            Long id = t.getId();
+            productRepo.deleteById(id);
+            return id;
+        }
+        else throw new ItemNameNotFoundException("product with this name wasn't found");
+    }
 }
