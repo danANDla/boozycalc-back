@@ -1,8 +1,8 @@
 package com.danandla.boozycalc.controller;
 
 import com.danandla.boozycalc.entity.ProductEntity;
-import com.danandla.boozycalc.exception.IngredientIdNotFoundException;
-import com.danandla.boozycalc.exception.IngredientNameUsedException;
+import com.danandla.boozycalc.exception.ItemIdNotFoundException;
+import com.danandla.boozycalc.exception.ItemNameUsedException;
 import com.danandla.boozycalc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +29,9 @@ public class ProductController {
         try {
             productService.addProduct(newProduct, ingr_id);
             return ResponseEntity.ok("product successfully added");
-        } catch (IngredientNameUsedException e) {
+        } catch (ItemNameUsedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (IngredientIdNotFoundException e) {
+        } catch (ItemIdNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);

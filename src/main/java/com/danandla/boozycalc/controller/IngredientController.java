@@ -1,16 +1,12 @@
 package com.danandla.boozycalc.controller;
 
 import com.danandla.boozycalc.entity.IngredientEntity;
-import com.danandla.boozycalc.exception.IngredientNameNotFoundException;
-import com.danandla.boozycalc.exception.IngredientNameUsedException;
-import com.danandla.boozycalc.repository.IngrRepo;
+import com.danandla.boozycalc.exception.ItemNameNotFoundException;
+import com.danandla.boozycalc.exception.ItemNameUsedException;
 import com.danandla.boozycalc.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/ingredients")
@@ -33,7 +29,7 @@ public class IngredientController {
         try {
             ingredientService.addIngredient(newIngredient);
             return ResponseEntity.ok("ingredient successfully added");
-        } catch (IngredientNameUsedException e) {
+        } catch (ItemNameUsedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
@@ -44,7 +40,7 @@ public class IngredientController {
     public ResponseEntity getIngredientByName(@RequestParam String ingredientName) {
         try {
             return ResponseEntity.ok(ingredientService.findIngredientByName(ingredientName));
-        } catch (IngredientNameNotFoundException e) {
+        } catch (ItemNameNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
@@ -55,7 +51,7 @@ public class IngredientController {
     public ResponseEntity deleteIngredientByName(@PathVariable String name){
         try {
             return ResponseEntity.ok(ingredientService.deleteByName(name));
-        } catch (IngredientNameNotFoundException e) {
+        } catch (ItemNameNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);

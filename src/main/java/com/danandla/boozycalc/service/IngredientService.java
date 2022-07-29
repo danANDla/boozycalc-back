@@ -1,8 +1,8 @@
 package com.danandla.boozycalc.service;
 
 import com.danandla.boozycalc.entity.IngredientEntity;
-import com.danandla.boozycalc.exception.IngredientNameNotFoundException;
-import com.danandla.boozycalc.exception.IngredientNameUsedException;
+import com.danandla.boozycalc.exception.ItemNameNotFoundException;
+import com.danandla.boozycalc.exception.ItemNameUsedException;
 import com.danandla.boozycalc.model.Ingredient;
 import com.danandla.boozycalc.repository.IngrRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +16,9 @@ public class IngredientService {
     @Autowired
     IngrRepo ingrRepo;
 
-    public IngredientEntity addIngredient(IngredientEntity newIngredient) throws IngredientNameUsedException {
+    public IngredientEntity addIngredient(IngredientEntity newIngredient) throws ItemNameUsedException {
         if (ingrRepo.findByName(newIngredient.getName()) != null)
-            throw new IngredientNameUsedException("ingredient with this name already exists");
+            throw new ItemNameUsedException("ingredient with this name already exists");
         return ingrRepo.save(newIngredient);
     }
 
@@ -32,19 +32,19 @@ public class IngredientService {
         return model_list;
     }
 
-    public Ingredient findIngredientByName(String ingredientName) throws IngredientNameNotFoundException {
+    public Ingredient findIngredientByName(String ingredientName) throws ItemNameNotFoundException {
         IngredientEntity t = ingrRepo.findByName(ingredientName);
         if (t != null) return Ingredient.toModel(t);
-        else throw new IngredientNameNotFoundException("ingredient with this name wasn't found");
+        else throw new ItemNameNotFoundException("ingredient with this name wasn't found");
     }
 
-    public Long deleteByName(String ingredientName) throws IngredientNameNotFoundException {
+    public Long deleteByName(String ingredientName) throws ItemNameNotFoundException {
         IngredientEntity t = ingrRepo.findByName(ingredientName);
         if (t != null) {
             Long id = t.getId();
             ingrRepo.deleteById(id);
             return id;
         }
-        else throw new IngredientNameNotFoundException("ingredient with this name wasn't found");
+        else throw new ItemNameNotFoundException("ingredient with this name wasn't found");
     }
 }
