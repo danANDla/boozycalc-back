@@ -3,7 +3,6 @@ package com.danandla.boozycalc.service;
 import com.danandla.boozycalc.entity.IngredientEntity;
 import com.danandla.boozycalc.exception.ItemNameNotFoundException;
 import com.danandla.boozycalc.exception.ItemNameUsedException;
-import com.danandla.boozycalc.model.Ingredient;
 import com.danandla.boozycalc.repository.IngrRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,19 +21,14 @@ public class IngredientService {
         return ingrRepo.save(newIngredient);
     }
 
-    public ArrayList<Ingredient> getAllIngredients() {
+    public ArrayList<IngredientEntity> getAllIngredients() {
         ArrayList<IngredientEntity> list = (ArrayList<IngredientEntity>) ingrRepo.findAll();
-        ArrayList<Ingredient> model_list = new ArrayList<>();
-        for (IngredientEntity i :
-                list) {
-            model_list.add(Ingredient.toModel(i));
-        }
-        return model_list;
+        return list;
     }
 
-    public Ingredient findIngredientByName(String ingredientName) throws ItemNameNotFoundException {
+    public IngredientEntity findIngredientByName(String ingredientName) throws ItemNameNotFoundException {
         IngredientEntity t = ingrRepo.findByName(ingredientName);
-        if (t != null) return Ingredient.toModel(t);
+        if (t != null) return t;
         else throw new ItemNameNotFoundException("ingredient with this name wasn't found");
     }
 
