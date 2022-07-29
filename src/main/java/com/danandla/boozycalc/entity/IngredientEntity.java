@@ -13,7 +13,7 @@ public class IngredientEntity {
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "globalIngredient")
-    private List<PricedIngredientEntity> pricedIngredients;
+    private List<ProductEntity> pricedIngredients;
 
     public IngredientEntity(){
 
