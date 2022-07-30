@@ -2,6 +2,7 @@ package com.danandla.boozycalc.controller;
 
 import com.danandla.boozycalc.entity.CocktailEntity;
 import com.danandla.boozycalc.exception.ItemIdNotFoundException;
+import com.danandla.boozycalc.exception.ItemNameNotFoundException;
 import com.danandla.boozycalc.exception.ItemNameUsedException;
 import com.danandla.boozycalc.model.WeightedIngredient;
 import com.danandla.boozycalc.service.CocktailService;
@@ -35,6 +36,17 @@ public class CocktailController {
         } catch (ItemNameUsedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (ItemIdNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity deleteCocktailByName(@RequestParam String name){
+        try {
+            return ResponseEntity.ok(cocktailService.deleteCocktailByName(name));
+        } catch (ItemNameNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);

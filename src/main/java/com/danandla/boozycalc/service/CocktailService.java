@@ -3,6 +3,7 @@ package com.danandla.boozycalc.service;
 import com.danandla.boozycalc.entity.CocktailEntity;
 import com.danandla.boozycalc.entity.IngredientEntity;
 import com.danandla.boozycalc.exception.ItemIdNotFoundException;
+import com.danandla.boozycalc.exception.ItemNameNotFoundException;
 import com.danandla.boozycalc.exception.ItemNameUsedException;
 import com.danandla.boozycalc.model.WeightedIngredient;
 import com.danandla.boozycalc.repository.CocktailRepo;
@@ -35,5 +36,15 @@ public class CocktailService {
     public List<CocktailEntity> getAllCocktails() {
         List<CocktailEntity> list = (List<CocktailEntity>) cocktailRepo.findAll();
         return list;
+    }
+
+    public Long deleteCocktailByName(String cocktailName) throws ItemNameNotFoundException {
+        CocktailEntity t = cocktailRepo.findByName(cocktailName);
+        if (t != null) {
+            Long id = t.getId();
+            cocktailRepo.deleteById(id);
+            return id;
+        }
+        else throw new ItemNameNotFoundException("cocktail with this name wasn't found");
     }
 }
