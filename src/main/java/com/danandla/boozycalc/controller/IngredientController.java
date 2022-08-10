@@ -26,6 +26,7 @@ public class IngredientController {
     }
 
     @PostMapping("/add")
+    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity addIngredient(@RequestBody IngredientEntity newIngredient) {
         try {
             ingredientService.addIngredient(newIngredient);
@@ -49,6 +50,7 @@ public class IngredientController {
     }
 
     @DeleteMapping
+    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity deleteIngredientByName(@RequestParam String name) {
         try {
             return ResponseEntity.ok(ingredientService.deleteByName(name));
@@ -58,4 +60,5 @@ public class IngredientController {
             return ResponseEntity.badRequest().body(e);
         }
     }
+
 }
