@@ -4,22 +4,20 @@ import com.danandla.boozycalc.entity.CocktailEntity;
 import com.danandla.boozycalc.exception.ItemIdNotFoundException;
 import com.danandla.boozycalc.exception.ItemNameNotFoundException;
 import com.danandla.boozycalc.exception.ItemNameUsedException;
-import com.danandla.boozycalc.model.WeightedIngredient;
 import com.danandla.boozycalc.service.CocktailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/cocktails")
+@RequestMapping("/api/cocktails")
 public class CocktailController {
 
     @Autowired
     private CocktailService cocktailService;
 
     @GetMapping("/all")
+    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity getCocktails() {
         try {
             return ResponseEntity.ok(cocktailService.getAllCocktails());
@@ -43,7 +41,7 @@ public class CocktailController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteCocktailByName(@RequestParam String name){
+    public ResponseEntity deleteCocktailByName(@RequestParam String name) {
         try {
             return ResponseEntity.ok(cocktailService.deleteCocktailByName(name));
         } catch (ItemNameNotFoundException e) {
