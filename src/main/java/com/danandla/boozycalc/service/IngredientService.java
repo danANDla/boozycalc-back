@@ -41,4 +41,13 @@ public class IngredientService {
         }
         else throw new ItemNameNotFoundException("ingredient with this name wasn't found");
     }
+
+    public Long deleteById(Long ingredientId) throws ItemNameNotFoundException {
+        IngredientEntity t = ingrRepo.findById(ingredientId).get();
+        if (t != null) {
+            ingrRepo.deleteById(ingredientId);
+            return ingredientId;
+        }
+        else throw new ItemNameNotFoundException("ingredient with this id wasn't found");
+    }
 }

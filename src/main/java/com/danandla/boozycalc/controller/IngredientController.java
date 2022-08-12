@@ -49,11 +49,23 @@ public class IngredientController {
         }
     }
 
+//    @DeleteMapping
+//    @CrossOrigin(origins = "http://localhost:8081")
+//    public ResponseEntity deleteIngredientByName(@RequestParam String name) {
+//        try {
+//            return ResponseEntity.ok(ingredientService.deleteByName(name));
+//        } catch (ItemNameNotFoundException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(e);
+//        }
+//    }
+
     @DeleteMapping
     @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity deleteIngredientByName(@RequestParam String name) {
+    public ResponseEntity deleteIngredientById(@RequestParam Long id) {
         try {
-            return ResponseEntity.ok(ingredientService.deleteByName(name));
+            return ResponseEntity.ok(ingredientService.deleteById(id));
         } catch (ItemNameNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
