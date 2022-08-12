@@ -47,4 +47,13 @@ public class CocktailService {
         }
         else throw new ItemNameNotFoundException("cocktail with this name wasn't found");
     }
+
+    public Long deleteById(Long cocktailId) throws ItemNameNotFoundException {
+        CocktailEntity t = cocktailRepo.findById(cocktailId).get();
+        if (t != null) {
+            cocktailRepo.deleteById(cocktailId);
+            return cocktailId;
+        }
+        else throw new ItemNameNotFoundException("cocktail with this id wasn't found");
+    }
 }

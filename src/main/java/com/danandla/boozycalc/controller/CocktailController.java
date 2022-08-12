@@ -41,11 +41,23 @@ public class CocktailController {
         }
     }
 
+//    @DeleteMapping
+//    @CrossOrigin(origins = "http://localhost:8081")
+//    public ResponseEntity deleteCocktailByName(@RequestParam String name) {
+//        try {
+//            return ResponseEntity.ok(cocktailService.deleteCocktailByName(name));
+//        } catch (ItemNameNotFoundException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(e);
+//        }
+//    }
+
     @DeleteMapping
     @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity deleteCocktailByName(@RequestParam String name) {
+    public ResponseEntity deleteCocktailById(@RequestParam Long id) {
         try {
-            return ResponseEntity.ok(cocktailService.deleteCocktailByName(name));
+            return ResponseEntity.ok(cocktailService.deleteById(id));
         } catch (ItemNameNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
