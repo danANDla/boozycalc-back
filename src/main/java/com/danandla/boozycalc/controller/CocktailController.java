@@ -27,6 +27,7 @@ public class CocktailController {
     }
 
     @PostMapping("/add")
+    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity addCocktail(@RequestBody CocktailEntity newCocktail) {
         try {
             cocktailService.addCocktail(newCocktail);
@@ -41,6 +42,7 @@ public class CocktailController {
     }
 
     @DeleteMapping
+    @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity deleteCocktailByName(@RequestParam String name) {
         try {
             return ResponseEntity.ok(cocktailService.deleteCocktailByName(name));
